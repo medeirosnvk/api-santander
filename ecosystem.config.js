@@ -5,6 +5,7 @@ module.exports = {
       script: "yarn",
       args: "dev",
       watch: true,
+      interpreter: "/bin/bash", // Caminho do interpretador
     },
   ],
 };
