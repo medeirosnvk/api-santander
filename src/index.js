@@ -18,6 +18,8 @@ app.post("/santander", (req, res) => {
   console.log(data);
 
   if (Object.keys(data).length === 0) {
+    console.log("O campo body nao foi enviado preenchido.");
+
     return res
       .status(400)
       .json({ error: "O campo body nao pode estar vazio." });
