@@ -1,7 +1,7 @@
-import * as dotenv from "dotenv";
-import express from "express";
-import fs from "fs";
-import path from "path";
+const dotenv = require("dotenv");
+const express = require("express");
+const fs = require("fs");
+const path = require("path");
 
 dotenv.config();
 
