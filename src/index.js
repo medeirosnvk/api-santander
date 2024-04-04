@@ -37,7 +37,7 @@ app.post("/santander", (req, res) => {
         return res.status(500).json({ error: "Erro ao gravar os dados" });
       }
       console.log("Dados gravados com sucesso!");
-      res.status(201).json({ fileName }); // Sending the generated filename back to the client
+      res.status(201).json({ fileName }); // Enviando o nome do arquivo gerado de volta para o cliente
     });
   } catch (error) {
     console.error("Erro ao escrever no arquivo:", error);
