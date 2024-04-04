@@ -10,8 +10,6 @@ const port = process.env.PORT;
 
 app.use(express.json());
 
-const __dirname = path.dirname(new URL(import.meta.url).pathname);
-
 app.post("/santander", (req, res) => {
   const data = req.body;
   console.log(data);
