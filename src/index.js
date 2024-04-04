@@ -46,8 +46,8 @@ app.post("/santander", (req, res) => {
   }
 });
 
-const privateKeyPath = "/home/etc/nginx/ssl/server.key";
-const certificatePath = "/home/etc/nginx/ssl/server.cert";
+const privateKeyPath = "/etc/nginx/ssl/server.key";
+const certificatePath = "/etc/nginx/ssl/server.cert";
 
 const privateKey = fs.readFileSync(privateKeyPath, "utf8");
 const certificate = fs.readFileSync(certificatePath, "utf8");
