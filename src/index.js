@@ -1,5 +1,7 @@
+const https = require("https");
 const dotenv = require("dotenv");
 const express = require("express");
+const bodyParser = require("body-parser");
 const fs = require("fs");
 const path = require("path");
 
@@ -9,6 +11,7 @@ const app = express();
 const port = process.env.PORT;
 
 app.use(express.json());
+app.use(bodyParser.json());
 
 app.post("/santander", (req, res) => {
   const data = req.body;
@@ -43,6 +46,15 @@ app.post("/santander", (req, res) => {
   }
 });
 
-app.listen(port, () => {
-  console.log(`Backend iniciado na porta ${port}`);
+const privateKeyPath = "/home/etc/nginx/ssl/server.key";
+const certificatePath = "/home/etc/nginx/ssl/server.cert";
+
+const privateKey = fs.readFileSync(privateKeyPath, "utf8");
+const certificate = fs.readFileSync(certificatePath, "utf8");
+const credentials = { key: privateKey, cert: certificate };
+
+const httpsServer = https.createServer(credentials, app);
+
+httpsServer.listen(port, () => {
+  console.log(`Servidor HTTPS rodando em https://191.101.70.186:${port}`);
 });
