@@ -18,7 +18,9 @@ app.post("/santander", (req, res) => {
   console.log(data);
 
   if (Object.keys(data).length === 0) {
-    return res.status(400).json({ error: "Nenhum dado fornecido" });
+    return res
+      .status(400)
+      .json({ error: "O campo body nao pode estar vazio." });
   }
 
   try {
