@@ -17,12 +17,12 @@ app.post("/santander", (req, res) => {
   const data = req.body;
   console.log(data);
 
-  if (Object.keys(data).length === 0) {
-    console.log("O campo body nao pode estar vazio.");
-    return res
-      .status(400)
-      .json({ error: "O campo body nao pode estar vazio." });
-  }
+  // if (Object.keys(data).length === 0) {
+  //   console.log("O campo body nao pode estar vazio.");
+  //   return res
+  //     .status(400)
+  //     .json({ error: "O campo body nao pode estar vazio." });
+  // }
 
   try {
     const folderPath = path.join(__dirname, "src", "data");
