@@ -15,7 +15,6 @@ app.use(bodyParser.json());
 
 app.post("/santander", (req, res) => {
   const data = req.body;
-  console.log(data);
 
   // if (Object.keys(data).length === 0) {
   //   console.log("O campo body nao pode estar vazio.");
