@@ -25,7 +25,7 @@ app.post("/santander", (req, res) => {
   // }
 
   try {
-    const folderPath = path.join(__dirname, "src", "data");
+    const folderPath = path.join(__dirname, "data");
 
     if (!fs.existsSync(folderPath)) {
       fs.mkdirSync(folderPath, { recursive: true });
