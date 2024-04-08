@@ -13,7 +13,14 @@ const port = process.env.PORT;
 app.use(express.json());
 app.use(bodyParser.json());
 
-app.post("/santander", (req, res) => {
+// app.use("/webhook-santander", (req, res, next) => {
+//   console.log(req.originalUrl);
+//   console.log(req.body);
+
+//   res.send(200).json();
+// });
+
+app.post("/", (req, res) => {
   const data = req.body;
 
   // if (Object.keys(data).length === 0) {
