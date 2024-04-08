@@ -55,15 +55,15 @@ app.post("/", (req, res) => {
   }
 });
 
-const privateKeyPath = "/etc/nginx/ssl/server.key";
-const certificatePath = "/etc/nginx/ssl/server.cert";
+// const privateKeyPath = "/etc/nginx/ssl/server.key";
+// const certificatePath = "/etc/nginx/ssl/server.cert";
 
-const privateKey = fs.readFileSync(privateKeyPath, "utf8");
-const certificate = fs.readFileSync(certificatePath, "utf8");
-const credentials = { key: privateKey, cert: certificate };
+// const privateKey = fs.readFileSync(privateKeyPath, "utf8");
+// const certificate = fs.readFileSync(certificatePath, "utf8");
+// const credentials = { key: privateKey, cert: certificate };
 
-const httpsServer = https.createServer(credentials, app);
+// const httpsServer = https.createServer(credentials, app);
 
-httpsServer.listen(port, () => {
+app.listen(port, () => {
   console.log(`Servidor HTTPS rodando em https://191.101.70.186:${port}`);
 });
