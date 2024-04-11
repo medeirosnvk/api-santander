@@ -13,15 +13,11 @@ const port = process.env.PORT;
 app.use(express.json());
 app.use(bodyParser.json());
 
-// app.use("/webhook-santander", (req, res, next) => {
-//   console.log(req.originalUrl);
-//   console.log(req.body);
-
-//   res.send(200).json();
-// });
-
-app.post("/", (req, res) => {
+app.post("/webhook", (req, res) => {
   const data = req.body;
+
+  console.log(req.originalUrl);
+  console.log(req.body);
 
   // if (Object.keys(data).length === 0) {
   //   console.log("O campo body nao pode estar vazio.");
