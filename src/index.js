@@ -2,8 +2,6 @@ const https = require("https");
 const dotenv = require("dotenv");
 const express = require("express");
 const bodyParser = require("body-parser");
-const fs = require("fs");
-const path = require("path");
 
 dotenv.config();
 
