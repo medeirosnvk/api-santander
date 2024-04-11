@@ -1,9 +1,10 @@
 const https = require("https");
+const dotenv = require("dotenv");
 const express = require("express");
 const bodyParser = require("body-parser");
 const options = require("./api");
 
-require("dotenv").config();
+dotenv.config();
 
 const app = express();
 const port = process.env.PORT;
