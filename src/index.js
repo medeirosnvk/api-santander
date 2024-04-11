@@ -1,5 +1,7 @@
+const https = require("https");
 const dotenv = require("dotenv");
 const express = require("express");
+const bodyParser = require("body-parser");
 const fs = require("fs");
 const path = require("path");
 
@@ -9,40 +11,54 @@ const app = express();
 const port = process.env.PORT;
 
 app.use(express.json());
+app.use(bodyParser.json());
 
-app.post("/santander", (req, res) => {
+app.post("/webhook", (req, res) => {
   const data = req.body;
-  console.log(data);
 
-  if (Object.keys(data).length === 0) {
-    return res.status(400).json({ error: "Nenhum dado fornecido" });
-  }
+  console.log(req.originalUrl);
+  console.log(req.body);
 
   try {
-    const folderPath = path.join(__dirname, "src", "data");
+    const postData = JSON.stringify(data);
 
-    if (!fs.existsSync(folderPath)) {
-      fs.mkdirSync(folderPath, { recursive: true });
-    }
+    const options = {
+      hostname: "cobrance.com.br",
+      path: "/santander2/webhook_boleto.php",
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Content-Length": postData.length,
+      },
+    };
 
-    const timestamp = new Date().toISOString().replace(/:/g, "-");
-    const fileName = `${timestamp}.json`;
-    const filePath = path.join(folderPath, fileName);
+    const request = https.request(options, (response) => {
+      console.log(`statusCode: ${response.statusCode}`);
 
-    fs.writeFile(filePath, JSON.stringify(data), (err) => {
-      if (err) {
-        console.error("Erro ao gravar os dados:", err);
-        return res.status(500).json({ error: "Erro ao gravar os dados" });
-      }
-      console.log("Dados gravados com sucesso!");
-      res.status(201).json({ fileName }); // Enviando o nome do arquivo gerado de volta para o cliente
+      response.on("data", (d) => {
+        process.stdout.write(d);
+      });
     });
+
+    request.on("error", (error) => {
+      console.error(error);
+      res
+        .status(500)
+        .json({ error: "Erro ao enviar os dados para cobrance.com.br" });
+    });
+
+    request.write(postData);
+    request.end();
+
+    res.status(200).json(); // Enviando o nome do arquivo gerado de volta para o cliente
   } catch (error) {
-    console.error("Erro ao escrever no arquivo:", error);
-    res.status(500).json({ error: "Erro ao escrever no arquivo" });
+    console.error("Erro ao enviar os dados para cobrance.com.br:", error);
+    res
+      .status(500)
+      .json({ error: "Erro ao enviar os dados para cobrance.com.br" });
   }
 });
 
 app.listen(port, () => {
-  console.log(`Backend iniciado na porta ${port}`);
+  console.log(`Servidor HTTPS rodando em https://191.101.70.186:${port}`);
 });
