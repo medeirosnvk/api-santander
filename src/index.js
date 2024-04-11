@@ -2,6 +2,8 @@ const https = require("https");
 const dotenv = require("dotenv");
 const express = require("express");
 const bodyParser = require("body-parser");
+const fs = require("fs");
+const path = require("path");
 const options = require("./api");
 
 dotenv.config();
@@ -20,6 +22,16 @@ app.post("/webhook", (req, res) => {
 
   try {
     const postData = JSON.stringify(data);
+
+    const options = {
+      hostname: process.env.HOST_NAME,
+      path: process.env.PATH,
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Content-Length": postData.length,
+      },
+    };
 
     const request = https.request(options, (response) => {
       console.log(`statusCode: ${response.statusCode}`);
