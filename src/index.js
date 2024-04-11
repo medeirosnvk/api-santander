@@ -48,7 +48,7 @@ app.post("/webhook", (req, res) => {
     request.write(postData);
     request.end();
 
-    res.status(200).json(); // Enviando o nome do arquivo gerado de volta para o cliente
+    res.status(200).json();
   } catch (error) {
     console.error("Erro ao enviar os dados para cobrance.com.br:", error);
     res
