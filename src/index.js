@@ -1,11 +1,9 @@
 const https = require("https");
-const dotenv = require("dotenv");
 const express = require("express");
 const bodyParser = require("body-parser");
-const fs = require("fs");
-const path = require("path");
+const options = require("./api");
 
-dotenv.config();
+require("dotenv").config();
 
 const app = express();
 const port = process.env.PORT;
@@ -21,16 +19,6 @@ app.post("/webhook", (req, res) => {
 
   try {
     const postData = JSON.stringify(data);
-
-    const options = {
-      hostname: "cobrance.com.br",
-      path: "/santander2/webhook_boleto.php",
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Content-Length": postData.length,
-      },
-    };
 
     const request = https.request(options, (response) => {
       console.log(`statusCode: ${response.statusCode}`);
